@@ -26,7 +26,7 @@ def get_token(args: List[Any]):
 args = ['/api/movie']
 token = get_token(args=args)
 index_url = INDEX_URL.format(limit=LIMIT, offset=OFFSET, token=token)
-response = requests.get(index_url)
+response = requests.get(index_url, verify=False)
 # print('response', response.json())
 
 result = response.json()
@@ -36,5 +36,5 @@ for item in result['results']:
     args = [f'/api/movie/{encrypt_id}']
     token = get_token(args=args)
     detail_url = DETAIL_URL.format(id=encrypt_id, token=token)
-    response = requests.get(detail_url,)
+    response = requests.get(detail_url, verify=False)
     print('response', response.json())
