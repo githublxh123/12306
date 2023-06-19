@@ -3,6 +3,12 @@ import time
 import base64
 import requests
 
+# 忽略请求不安全的警告
+import urllib3
+from urllib3.exceptions import InsecureRequestWarning
+
+urllib3.disable_warnings(InsecureRequestWarning)
+
 INDEX_URL = "https://spa6.scrape.center/api/movie/?limit={}&offset={}&token={}"
 LIMIT = 10
 OFFSET = 0
@@ -27,5 +33,5 @@ if __name__ == '__main__':
     for i in range(10):
         index_url = INDEX_URL.format(LIMIT, OFFSET + (i * 10), token)
         # print(index_url)
-        response = requests.get(index_url)
+        response = requests.get(index_url, verify=False)
         print(response.json())
